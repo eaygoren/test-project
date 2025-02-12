@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "module": "esnext",
+    "target": "es2017",
+    "moduleResolution": "Node",
+    "strict": true,
+    "esModuleInterop": true,
+    "outDir": "project/dist",
+    "rootDir": "project/src",
+    "types": ["pixi.js"]
+  },
+  "include": [
+    "project/src/**/*",
+    "project/src/def/**/*.ts"
+  ],
+  "exclude": ["node_modules", "project/dist"]
+}
