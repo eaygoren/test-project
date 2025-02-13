@@ -1,9 +1,10 @@
 import mitt from "mitt";
 
 type Events = {
-    spinStart: void;
-    spinEnd: { result: string };
-    balanceUpdate: { newBalance: number };
+    spinStarted: void;
+    spinStopped: void;
+    dataRecived: void;
+    [key: string]: any;
 };
 
 export const eventBus = mitt<Events>();

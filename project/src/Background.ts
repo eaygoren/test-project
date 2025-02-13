@@ -8,13 +8,18 @@ export class Background extends PIXI.Container {
 
     constructor(app: any) {
         super();
-        
+
         this._app = app;
-        
+
         this.onLoad();
     }
 
-    public onLoad() {
+    private onLoad() {
+        this.createBackground();
+        this.eventListeners();
+    }
+
+    private createBackground() {
         let background = PIXI.Sprite.from("background");
         background.label = "Background";
         background.width = WIDTH;
@@ -22,5 +27,9 @@ export class Background extends PIXI.Container {
         background.anchor.set(0.5, 0.5);
         background.position.set(WIDTH / 2, HEIGHT / 2);
         this.addChild(background);
+    }
+
+    private eventListeners() {
+
     }
 }

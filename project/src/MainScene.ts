@@ -41,8 +41,6 @@ export class MainScene extends PIXI.Container {
 
         window.addEventListener("resize", this.onResize.bind(this));
 
-        //globalThis.eventBus.on("click", () => { console.log(1); });
-
         this.onResize();
     }
 
@@ -58,10 +56,10 @@ export class MainScene extends PIXI.Container {
         const horizontalMargin = (screenWidth - enlargedWidth) / 2;
         const verticalMargin = (screenHeight - enlargedHeight) / 2;
 
-        this.app.canvas.style.width = `${enlargedWidth}px`;
-        this.app.canvas.style.height = `${enlargedHeight}px`;
-        this.app.canvas.style.marginLeft = this.app.canvas.style.marginRight = `${horizontalMargin}px`;
-        this.app.canvas.style.marginTop = this.app.canvas.style.marginBottom = `${verticalMargin}px`;
+        this._app.canvas.style.width = `${enlargedWidth}px`;
+        this._app.canvas.style.height = `${enlargedHeight}px`;
+        this._app.canvas.style.marginLeft = this._app.canvas.style.marginRight = `${horizontalMargin}px`;
+        this._app.canvas.style.marginTop = this._app.canvas.style.marginBottom = `${verticalMargin}px`;
     }
 
     public get app(): PIXI.Application {

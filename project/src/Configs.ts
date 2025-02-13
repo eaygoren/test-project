@@ -35,32 +35,32 @@ export const ASSETS = [
     { alias: "M4_connect", src: "assets/symbols/M4_connect.png" },
     { alias: "M5", src: "assets/symbols/M5.png" },
     { alias: "M5_connect", src: "assets/symbols/M5_connect.png" },
-    { alias: "M6background", src: "assets/symbols/M6.png" },
+    { alias: "M6", src: "assets/symbols/M6.png" },
     { alias: "M6_connect", src: "assets/symbols/M6_connect.png" },
     { alias: "Q", src: "assets/symbols/Q.png" },
     { alias: "Q_connect", src: "assets/symbols/Q_connect.png" },
 ];
 
 export const SYMBOLS = [
-    { index: 0, texture: "BONUS", highlight:"BONUS", payout: { 3: 150, 4: 250, 5: 500 } },
-    { index: 1, texture: "H1", highlight: "H1_connect", payout: { 3: 25, 4: 50, 5: 100 } },
-    { index: 2, texture: "H2", highlight: "H2_connect", payout: { 3: 25, 4: 50, 5: 100 } },
-    { index: 3, texture: "H3", highlight: "H3_connect", payout: { 3: 25, 4: 50, 5: 100 } },
-    { index: 4, texture: "H4", highlight: "H4_connect", payout: { 3: 25, 4: 50, 5: 100 } },
-    { index: 5, texture: "H5", highlight: "H5_connect", payout: { 3: 25, 4: 50, 5: 100 } },
-    { index: 6, texture: "H6", highlight: "H6_connect", payout: { 3: 10, 4: 25, 5: 100 } },
-    { index: 7, texture: "M1", highlight: "M1_connect", payout: { 3: 10, 4: 25, 5: 75 } },
-    { index: 8, texture: "M2", highlight: "M2_connect", payout: { 3: 10, 4: 25, 5: 75 } },
-    { index: 9, texture: "M3", highlight: "M3_connect", payout: { 3: 10, 4: 25, 5: 75 } },
-    { index: 10, texture: "M4", highlight: "M4_connect", payout: { 3: 10, 4: 25, 5: 75 } },
-    { index: 11, texture: "M5", highlight: "M5_connect", payout: { 3: 10, 4: 25, 5: 75 } },
-    { index: 12, texture: "M6", highlight: "M6_connect", payout: { 3: 10, 4: 25, 5: 75 } },
-    { index: 13, texture: "9", highlight: "9_connect", payout: { 3: 5, 4: 10, 5: 20 } },
-    { index: 14, texture: "10", highlight: "10_connect", payout: { 3: 5, 4: 10, 5: 20 } },
-    { index: 15, texture: "A", highlight: "A_connect", payout: { 3: 5, 4: 10, 5: 20 } },
-    { index: 16, texture: "K", highlight: "K_connect", payout: { 3: 5, 4: 10, 5: 20 } },
-    { index: 17, texture: "Q", highlight: "Q_connect", payout: { 3: 5, 4: 10, 5: 20 } },
-    { index: 18, texture: "J", highlight: "J_connect", payout: { 3: 5, 4: 10, 5: 20 } },
+    { index: 0, base: "BONUS", highlight: "BONUS", payout: { 3: 150, 4: 250, 5: 500 }, texture: "assets/symbols/BONUS.png" },
+    { index: 1, base: "H1", highlight: "H1_connect", payout: { 3: 25, 4: 50, 5: 100 }, texture: "assets/symbols/H1.png" },
+    { index: 2, base: "H2", highlight: "H2_connect", payout: { 3: 25, 4: 50, 5: 100 }, texture: "assets/symbols/H2.png" },
+    { index: 3, base: "H3", highlight: "H3_connect", payout: { 3: 25, 4: 50, 5: 100 }, texture: "assets/symbols/H3.png" },
+    { index: 4, base: "H4", highlight: "H4_connect", payout: { 3: 25, 4: 50, 5: 100 }, texture: "assets/symbols/H4.png" },
+    { index: 5, base: "H5", highlight: "H5_connect", payout: { 3: 25, 4: 50, 5: 100 }, texture: "assets/symbols/H5.png" },
+    { index: 6, base: "H6", highlight: "H6_connect", payout: { 3: 10, 4: 25, 5: 100 }, texture: "assets/symbols/H6.png" },
+    { index: 7, base: "M1", highlight: "M1_connect", payout: { 3: 10, 4: 25, 5: 75 }, texture: "assets/symbols/M1.png" },
+    { index: 8, base: "M2", highlight: "M2_connect", payout: { 3: 10, 4: 25, 5: 75 }, texture: "assets/symbols/M2.png" },
+    { index: 9, base: "M3", highlight: "M3_connect", payout: { 3: 10, 4: 25, 5: 75 }, texture: "assets/symbols/M3.png" },
+    { index: 10, base: "M4", highlight: "M4_connect", payout: { 3: 10, 4: 25, 5: 75 }, texture: "assets/symbols/M4.png" },
+    { index: 11, base: "M5", highlight: "M5_connect", payout: { 3: 10, 4: 25, 5: 75 }, texture: "assets/symbols/M5.png" },
+    { index: 12, base: "M6", highlight: "M6_connect", payout: { 3: 10, 4: 25, 5: 75 }, texture: "assets/symbols/M6.png" },
+    { index: 13, base: "9", highlight: "9_connect", payout: { 3: 5, 4: 10, 5: 20 }, texture: "assets/symbols/9.png" },
+    { index: 14, base: "10", highlight: "10_connect", payout: { 3: 5, 4: 10, 5: 20 }, texture: "assets/symbols/10.png" },
+    { index: 15, base: "A", highlight: "A_connect", payout: { 3: 5, 4: 10, 5: 20 }, texture: "assets/symbols/A.png" },
+    { index: 16, base: "K", highlight: "K_connect", payout: { 3: 5, 4: 10, 5: 20 }, texture: "assets/symbols/K.png" },
+    { index: 17, base: "Q", highlight: "Q_connect", payout: { 3: 5, 4: 10, 5: 20 }, texture: "assets/symbols/Q.png" },
+    { index: 18, base: "J", highlight: "J_connect", payout: { 3: 5, 4: 10, 5: 20 }, texture: "assets/symbols/J.png" },
 ];
 
 export const REEL_SET = [
@@ -70,3 +70,7 @@ export const REEL_SET = [
     [10, 11, 15, 11, 10, 1, 4, 7, 0, 0, 3, 6, 6, 13, 9, 0, 17, 11, 4, 8, 0, 16, 6, 1, 15, 15, 11, 5, 16, 1, 1, 15, 5, 13, 10, 0, 18, 8, 14, 2, 16, 18, 11, 13, 13, 10, 1, 14, 13, 13, 8],
     [15, 8, 10, 11, 1, 11, 17, 2, 3, 5, 15, 0, 18, 12, 0, 16, 6, 3, 3, 3, 9, 4, 15, 16, 5, 10, 7, 15, 17, 0, 8, 14, 2, 7, 5, 5, 6, 9, 3, 8, 17, 10, 3, 5, 0, 11, 9, 14, 7, 2],
 ];
+
+export const SPIN_STARTED = "spinStarted";
+export const SPIN_STOPPED = "spinStopped";
+export const DATA_RECEIVED = "dataRecived";

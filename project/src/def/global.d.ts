@@ -1,9 +1,9 @@
 import * as mitt from "mitt";
 
 type Events = {
-    spinStart: void;
-    spinEnd: { result: string };
-    balanceUpdate: { newBalance: number };
+    spinStarted: void;
+    spinStopped: void;
+    dataRecived: void;
     [key: string]: any;
 };
 
