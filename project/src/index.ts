@@ -1,5 +1,5 @@
-import { MainScene } from "./MainScene";
+import { core } from "./core";
 
 (async () => {
-    const mainScene = await new MainScene().init();
+    const mainScene = await new core().init();
 })();

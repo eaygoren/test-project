@@ -15,11 +15,11 @@ export class Background extends PIXI.Container {
     }
 
     private onLoad() {
-        this.createBackground();
+        this.create();
         this.eventListeners();
     }
 
-    private createBackground() {
+    private create() {
         let background = PIXI.Sprite.from("background");
         background.label = "Background";
         background.width = WIDTH;

@@ -1,15 +1,15 @@
 import * as PIXI from "pixi.js";
-import { AssetLoader } from "./AssetLoader";
 import { Background } from "./Background";
 import { Machine } from "./Machine";
 import { eventBus } from "./EventBus";
+import { ASSETS } from "./Configs";
 
 globalThis.eventBus = eventBus;
 
 const WIDTH: number = 1280;
 const HEIGHT: number = 720;
 
-export class MainScene extends PIXI.Container {
+export class core extends PIXI.Container {
     private _app: PIXI.Application;
 
     constructor() {
@@ -29,9 +29,11 @@ export class MainScene extends PIXI.Container {
             backgroundColor: "White",
         });
 
-        document.getElementById("Container")?.appendChild(this._app.canvas);
+        document.getElementById("Container")?.appendChild(this._app.canvas); 
 
-        const assetLoader = await new AssetLoader().loader();
+        await PIXI.Assets.load(ASSETS);
+
+        await document.fonts.ready;
 
         const background = new Background(this._app);
         this.addChild(background);

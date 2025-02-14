@@ -1,10 +1,15 @@
 import mitt from "mitt";
+import { Events } from "./def/global";
 
-type Events = {
-    spinStarted: void;
-    spinStopped: void;
-    dataRecived: void;
-    [key: string]: any;
-};
+export enum EventNames {
+    SpinStarted = "spinStarted",
+    SpinStopped = "spinStopped",
+    AllReelsStopped = "allReelsStopped",
+    ReelStopped = "reelStopped",
+    MoneyEarned = "moneyEarned",
+    WinShown = "winShown",
+    PopupShown = "popupShown",
+    DataRecieved = "dataRecieved"
+}
 
 export const eventBus = mitt<Events>();

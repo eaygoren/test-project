@@ -3,7 +3,6 @@
     "module": "esnext",
     "target": "es2017",
     "moduleResolution": "Node",
-    "strict": true,
     "esModuleInterop": true,
     "outDir": "project/dist",
     "rootDir": "project/src",
