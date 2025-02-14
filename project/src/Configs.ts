@@ -7,6 +7,7 @@ export const ASSETS = [
     { alias: "minus", src: "assets/environment/minus.png" },
     { alias: "highlight", src: "assets/environment/highlight.png" },
     { alias: "popup", src: "assets/environment/popup.png" },
+    { alias: "payout", src: "assets/environment/payout.png" },
     { alias: "9", src: "assets/symbols/9.png" },
     { alias: "9_connect", src: "assets/symbols/9_connect.png" },
     { alias: "10", src: "assets/symbols/10.png" },
@@ -103,3 +104,11 @@ export enum SPIN_TYPES {
     BaseSpin = "baseSpin",
     FreeSpin = "freeSpin"
 }
+
+export const PAYOUT_POSITIONS=[
+    [{ x: 277, y: 148 }, { x: 277, y: 299 }, { x: 277, y: 449 }],
+    [{ x: 458, y: 148 }, { x: 458, y: 299 }, { x: 458, y: 449 }],
+    [{ x: 639, y: 148 }, { x: 639, y: 299 }, { x: 639, y: 449 }],
+    [{ x: 821, y: 148 }, { x: 821, y: 299 }, { x: 821, y: 449 }],
+    [{ x: 1002, y: 148 }, { x: 1002, y: 299 }, { x: 1002, y: 449 }]
+]

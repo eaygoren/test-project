@@ -59,7 +59,7 @@ export class Reels extends PIXI.Container {
 
             this._symbols[cIndex] = [];
             for (let rIndex = 0; rIndex < this._row + this._excess; rIndex++) {
-                this._symbols[cIndex][rIndex] = new Symbol(this._app, (REEL_SET[cIndex][randomSymbolIndex + rIndex]));
+                this._symbols[cIndex][rIndex] = new Symbol(this._app, (REEL_SET[cIndex][randomSymbolIndex + rIndex]), cIndex, rIndex - 1);
                 this._symbols[cIndex][rIndex].position.set(0, this.SYMBOL_OFFSET_Y + (rIndex * (this._symbols[cIndex][rIndex].height + this.SYMBOL_GAP)));
 
                 this._reelContainers[cIndex].addChild(this._symbols[cIndex][rIndex]);
@@ -72,6 +72,7 @@ export class Reels extends PIXI.Container {
         globalThis.eventBus.on(EventNames.DataRecieved, this.onDataReceived.bind(this));
         globalThis.eventBus.on(EventNames.ReelStopped, this.onReelStopped.bind(this));
         globalThis.eventBus.on(EventNames.WinShown, this.onWinDisplayOver.bind(this));
+        globalThis.eventBus.on(EventNames.SymbolClicked, this.onSymbolClicked.bind(this));
     }
 
     public startSpin(delay: number = 0.5) {
@@ -213,7 +214,11 @@ export class Reels extends PIXI.Container {
         }
     }
 
-    public get reels(): Array<PIXI.Sprite> {
+    private onSymbolClicked(data: { symbolIndex: number, reelIndex: number, rowIndex: number }) {
+        globalThis.eventBus.emit(EventNames.SymbolClickedFromReels, data);
+    }
+
+    public get reel(): Array<PIXI.Sprite> {
         return this._reels;
     }
 

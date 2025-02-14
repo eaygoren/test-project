@@ -7,6 +7,7 @@ export class WinDisplay extends PIXI.Container {
 
     private _highlight: PIXI.Sprite;
     private _winAmount: PIXI.Text;
+    private _isWinDisplaying: boolean = false;
 
     constructor(app: any) {
         super();
@@ -54,6 +55,8 @@ export class WinDisplay extends PIXI.Container {
     }
 
     public showWin(amount: number) {
+        this._isWinDisplaying = true;
+
         gsap.fromTo([this._highlight.scale, this._winAmount.scale], { x: 0, y: 0 }, {
             x: 1, y: 1, duration: 0.25, ease: "back.out(1)", onStart: () => {
                 this._winAmount.text = (amount + " €").toString();
@@ -68,9 +71,15 @@ export class WinDisplay extends PIXI.Container {
                         this._winAmount.text = "";
 
                         globalThis.eventBus.emit(EventNames.WinShown, amount);
+
+                        this._isWinDisplaying = false;
                     }
                 });
             }
         });
+    }
+
+    public get isWinDisplaying() : boolean {
+        return this._isWinDisplaying;
     }
 }

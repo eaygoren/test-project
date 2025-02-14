@@ -9,7 +9,9 @@ export enum EventNames {
     MoneyEarned = "moneyEarned",
     WinShown = "winShown",
     PopupShown = "popupShown",
-    DataRecieved = "dataRecieved"
+    SymbolClicked = "symbolClicked",
+    DataRecieved = "dataRecieved",
+    SymbolClickedFromReels = "symbolClickedFromReels"
 }
 
 export const eventBus = mitt<Events>();

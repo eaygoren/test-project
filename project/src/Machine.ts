@@ -1,10 +1,11 @@
 import * as PIXI from "pixi.js";
-import { Reels } from "./Reels";
 import gsap from "gsap";
 import { EventNames } from "./EventBus";
+import { BET_COMMANDS, BET_RANGE } from "./Configs";
+import { Reels } from "./Reels";
 import { WinDisplay } from "./WinDisplay";
 import { Popup } from "./Popup";
-import { BET_COMMANDS, BET_RANGE } from "./Configs";
+import { Payout } from "./Payout";
 
 const INITIAL_CREDIT: number = 50000;
 const INITIAL_BET: number = BET_RANGE[BET_RANGE.length - 1];
@@ -14,6 +15,7 @@ export class Machine extends PIXI.Container {
 
     private _reels: Reels;
     private _winDisplay: WinDisplay;
+    private _payout: Payout;
     private _popup: Popup;
 
     private _interface: PIXI.Sprite;
@@ -167,6 +169,15 @@ export class Machine extends PIXI.Container {
         this._buttonText.style._stroke.width = 6;
         this._spinButton.addChild(this._buttonText);
 
+        this._payout = new Payout(this._app);
+        this.addChild(this._payout);
+
+        document.onpointerdown = () => {
+            if (this._payout.isOpened) {
+                this._payout.hidePayout();
+            }
+        }
+
         this._popup = new Popup(this._app);
         this.addChild(this._popup);
     }
@@ -209,6 +220,8 @@ export class Machine extends PIXI.Container {
         globalThis.eventBus.on(EventNames.WinShown, this.calculateCredits.bind(this));
 
         globalThis.eventBus.on(EventNames.PopupShown, this.resetUIElements.bind(this));
+
+        globalThis.eventBus.on(EventNames.SymbolClickedFromReels, this.showPayout.bind(this));
     }
 
     private startSpin() {
@@ -261,6 +274,12 @@ export class Machine extends PIXI.Container {
 
         this._betAmount = BET_RANGE[this._betIndex];
         this._bet.text = this._betAmount.toString();
+    }
+
+    private showPayout(data: { symbolIndex: number, reelIndex: number, rowIndex: number }) {
+        if (!this._reels.isSpinning && !this._winDisplay.isWinDisplaying) {
+            this._payout.showPayout(data);
+        }
     }
 
     private resetUIElements() {

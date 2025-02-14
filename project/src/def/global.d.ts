@@ -10,6 +10,16 @@ export type Events = {
     [EventNames.WinShown]: number;
     [EventNames.PopupShown]: void;
     [EventNames.DataRecieved]: number;
+    [EventNames.SymbolClicked]: {
+        symbolIndex: number;
+        reelIndex: number;
+        rowIndex: number;
+    };
+    [EventNames.SymbolClickedFromReels]: {
+        symbolIndex: number;
+        reelIndex: number;
+        rowIndex: number;
+    };
 };
 
 declare global {
