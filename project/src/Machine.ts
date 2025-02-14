@@ -6,7 +6,7 @@ import { WinDisplay } from "./WinDisplay";
 import { Popup } from "./Popup";
 import { BET_COMMANDS, BET_RANGE } from "./Configs";
 
-const INITIAL_CREDIT: number = 50;
+const INITIAL_CREDIT: number = 50000;
 const INITIAL_BET: number = BET_RANGE[BET_RANGE.length - 1];
 
 export class Machine extends PIXI.Container {
@@ -203,7 +203,7 @@ export class Machine extends PIXI.Container {
         });
 
         globalThis.eventBus.on(EventNames.SpinStopped, () => {
-            globalThis.eventBus.on(EventNames.MoneyEarned, this._winDisplay.showWin.bind(this._winDisplay));
+            globalThis.eventBus.on(EventNames.MoneyEarned, this.onSpinStopped.bind(this));
         });
 
         globalThis.eventBus.on(EventNames.WinShown, this.calculateCredits.bind(this));
@@ -213,6 +213,15 @@ export class Machine extends PIXI.Container {
 
     private startSpin() {
         this._reels.startSpin(0.15);
+    }
+
+    private onSpinStopped(amount: number) {
+        if (amount > 0) {
+            this._winDisplay.showWin(amount);
+        } else {
+            this.resetUIElements();
+            globalThis.eventBus.off(EventNames.MoneyEarned);
+        }
     }
 
     private calculateCredits(earn: number) {

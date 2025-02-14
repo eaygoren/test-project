@@ -26,8 +26,7 @@ export class WinDisplay extends PIXI.Container {
         this._highlight.label = "Highlight";
         this._highlight.anchor.set(0.5, 0.5);
         this._highlight.position.set(640, 300);
-        this._highlight.alpha = 0.4;
-        this._highlight.blendMode = "add";
+        this._highlight.alpha = 0.3;
         this._highlight.visible = false;
         this.addChild(this._highlight);
 
@@ -39,7 +38,7 @@ export class WinDisplay extends PIXI.Container {
         this._winAmount.style = {
             fontFamily: "TiltNeon",
             fontSize: 120,
-            fontWeight: "700",
+            fontWeight: "900",
             align: "center",
             fill: "#F8E7F6",
             stroke: "#4B164C",
@@ -63,7 +62,7 @@ export class WinDisplay extends PIXI.Container {
                 this._winAmount.visible = true;
             }, onComplete: () => {
                 gsap.to([this._highlight.scale, this._winAmount.scale], {
-                    x: 0, y: 0, duration: 0.25, ease: "back.in(1)", delay: 1, onComplete: () => {
+                    x: 0, y: 0, duration: 0.25, ease: "back.in(1)", delay: 2, onComplete: () => {
                         this._highlight.visible = false;
                         this._winAmount.visible = false;
                         this._winAmount.text = "";

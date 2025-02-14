@@ -1,6 +1,6 @@
 import * as PIXI from "pixi.js";
 import gsap from "gsap";
-import { REEL_SET, SYMBOLS } from "./Configs";
+import { REEL_SET, SYMBOLS, WINNING_REEL_INDICES } from "./Configs";
 import { EventNames } from "./EventBus";
 import { Symbol } from "./Symbol";
 
@@ -71,6 +71,7 @@ export class Reels extends PIXI.Container {
         globalThis.eventBus.on(EventNames.AllReelsStopped, this.onSpinStopped.bind(this));
         globalThis.eventBus.on(EventNames.DataRecieved, this.onDataReceived.bind(this));
         globalThis.eventBus.on(EventNames.ReelStopped, this.onReelStopped.bind(this));
+        globalThis.eventBus.on(EventNames.WinShown, this.onWinDisplayOver.bind(this));
     }
 
     public startSpin(delay: number = 0.5) {
@@ -148,8 +149,68 @@ export class Reels extends PIXI.Container {
 
     private onSpinStopped() {
         globalThis.eventBus.emit(EventNames.SpinStopped);
-        globalThis.eventBus.emit(EventNames.MoneyEarned, 500);
         this._isSpinning = false;
+
+        this.checkWin();
+    }
+
+    private checkWin() {
+        let winFound = false;
+
+        for (let index = 0; index < WINNING_REEL_INDICES.length; index++) {
+            if (winFound) break;
+
+            switch (WINNING_REEL_INDICES[index].index) {
+                case this._data + 1:
+                case this._data + 2:
+                case this._data + 3:
+                    if (this._data + 2 === WINNING_REEL_INDICES[index].index) {
+                        switch (WINNING_REEL_INDICES[index].pattern) {
+                            case "line":
+                            case "w":
+                            case "u":
+                                break;
+                            default:
+                                continue;
+                        }
+                    } else if (this._data + 3 === WINNING_REEL_INDICES[index].index) {
+                        if (WINNING_REEL_INDICES[index].pattern !== "line") {
+                            continue;
+                        }
+                    }
+
+                    setTimeout(() => {
+                        for (let rIndex = 0; rIndex < this._symbols.length; rIndex++) {
+                            for (let sIndex = 1; sIndex < this._symbols[rIndex].length - 1; sIndex++) {
+                                if (this._symbols[rIndex][sIndex].index == WINNING_REEL_INDICES[index].smyIndex) {
+                                    this._symbols[rIndex][sIndex].setHighlight();
+                                } else {
+                                    this._symbols[rIndex][sIndex].setBlackout();
+                                }
+                            }
+                        }
+                    }, 100);
+
+                    let payout = SYMBOLS[WINNING_REEL_INDICES[index].smyIndex].payout[WINNING_REEL_INDICES[index].count];
+                    globalThis.eventBus.emit(EventNames.MoneyEarned, payout);
+
+                    winFound = true;
+                    break;
+            }
+        }
+
+        if (!winFound) {
+            globalThis.eventBus.emit(EventNames.MoneyEarned, -1);
+        }
+    }
+
+    private onWinDisplayOver() {
+        for (let rIndex = 0; rIndex < this._symbols.length; rIndex++) {
+            for (let sIndex = 1; sIndex < this._symbols[rIndex].length - 1; sIndex++) {
+                this._symbols[rIndex][sIndex].setBase();
+                this._symbols[rIndex][sIndex].setDefault();
+            }
+        }
     }
 
     public get reels(): Array<PIXI.Sprite> {

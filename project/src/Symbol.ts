@@ -23,7 +23,7 @@ export class Symbol extends PIXI.Sprite {
     }
 
     private create() {
-        this.texture = PIXI.Texture.from(SYMBOLS[this._index].texture);
+        this.texture = PIXI.Texture.from(SYMBOLS[this._index].base);
         this.label = `Symbol[${this._index}]`;
         this.anchor.set(0.5, 0.5);
         this.addChild(this);
@@ -34,11 +34,25 @@ export class Symbol extends PIXI.Sprite {
     }
 
     public setIndex(index: number) {
-        if (this._index == index) {
-            return;
-        }
         this._index = index;
-        this.texture = PIXI.Texture.from(SYMBOLS[this._index].texture);
+        this.texture = PIXI.Texture.from(SYMBOLS[this._index].base);
+        this.label = `Symbol[${this._index}]`;
+    }
+
+    public setHighlight() {
+        this.texture = PIXI.Texture.from(SYMBOLS[this._index].highlight);
+    }
+
+    public setBase() {
+        this.texture = PIXI.Texture.from(SYMBOLS[this._index].base);
+    }
+
+    public setBlackout() {
+        this.tint = 0x555555;
+    }
+
+    public setDefault() {
+        this.tint = 0xFFFFFF;
     }
 
     public get index(): number {
