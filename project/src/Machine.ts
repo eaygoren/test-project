@@ -7,6 +7,8 @@ import { WinDisplay } from "./WinDisplay";
 import { Popup } from "./Popup";
 import { Payout } from "./Payout";
 
+const COL_LENGTH = 5;
+const ROW_LENGTH = 3;
 const INITIAL_CREDIT: number = 50000;
 const INITIAL_BET: number = BET_RANGE[BET_RANGE.length - 1];
 
@@ -34,7 +36,7 @@ export class Machine extends PIXI.Container {
 
         this._app = app;
 
-        this.onLoad(5, 3);
+        this.onLoad(COL_LENGTH, ROW_LENGTH);
     }
 
     private onLoad(col: number, row: number) {

@@ -1,16 +1,11 @@
 import * as PIXI from "pixi.js";
-import gsap from "gsap";
 import { PAYOUT_POSITIONS, SYMBOLS } from "./Configs";
-import { EventNames } from "./EventBus";
 
 export class Payout extends PIXI.Container {
     private _app: PIXI.Application;
 
     private _background: PIXI.Sprite;
     private _isOpened: boolean = false;
-    private _symbolIndex: number;
-    private _reelIndex: number;
-    private _rowIndex: number;
 
     constructor(app: any) {
         super();
@@ -41,9 +36,6 @@ export class Payout extends PIXI.Container {
         if (this._isOpened) {
             this.hidePayout();
         }
-        this._symbolIndex = data.symbolIndex;
-        this._reelIndex = data.reelIndex;
-        this._rowIndex = data.rowIndex;
 
         this.eventMode = "static";
 
@@ -102,17 +94,5 @@ export class Payout extends PIXI.Container {
 
     public get isOpened(): boolean {
         return this._isOpened;
-    }
-
-    public get symbolIndex(): number {
-        return this._symbolIndex;
-    }
-
-    public get reelIndex(): number {
-        return this._reelIndex;
-    }
-
-    public get rowIndex(): number {
-        return this._rowIndex;
     }
 }
