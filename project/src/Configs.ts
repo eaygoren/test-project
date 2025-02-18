@@ -1,3 +1,4 @@
+// Define asset references with aliases and sources for images
 export const ASSETS = [
     { alias: "background", src: "assets/environment/background.jpg" },
     { alias: "reel", src: "assets/environment/reel.png" },
@@ -47,6 +48,7 @@ export const ASSETS = [
     { alias: "Q_connect", src: "assets/symbols/Q_connect.png" },
 ];
 
+// Symbol payouts and connections
 export const SYMBOLS = [
     { index: 0,  base: "BONUS", highlight: "BONUS",      payout: { 3: 150, 4: 250, 5: 500 } },
     { index: 1,  base: "H1",    highlight: "H1_connect", payout: { 3: 25, 4: 50, 5: 100 } },
@@ -69,6 +71,7 @@ export const SYMBOLS = [
     { index: 18, base: "J",     highlight: "J_connect",  payout: { 3: 5, 4: 10, 5: 20 } },
 ];
 
+// Reel setup for the game
 export const REEL_SET = [
     [14,  0,  13,  12,   6,   4,   8,   9,  17,   1,   7,  11,  10,   1,  14,  15,   5,  14,   8,   0,  15,   9,   11,  10,   4,   9,   8,   8,  0,  14,  10,  8,    2,   4,   6,   2,   8,   1,   8,  14,   10,   18,   14,   5,   8,    1,   2,   11,  13,  13],
     [16,  1,  11,  12,   8,   5,   4,  11,  17,   6,  10,  12,   9,  14,   0,  11,   9,   5,   2,   8,  15,   4,   17,   0,  10,  17,  13,   2,  0,  12,  12,  6,   13,   0,  11,   8,   2,   6,  10,  12,   16,   14,   10,  15,   5,   17,   0,    3,   9,  13],
@@ -77,6 +80,7 @@ export const REEL_SET = [
     [15,  17, 10,   0,   1,   4,   8,   2,   3,   5,  15,   0,  18,  12,  14,  16,   6,   3,   8,   1,   9,   4,   15,  10,   5,  14,   7,  15,  0,   9,   8,  14,   2,   7,   5,   5,   6,   9,   3,   8,   17,   10,    3,   5,   0,   11,   9,   14,   7,   2],
 ];
 
+// Winning reel indices and patterns
 export const WINNING_REEL_INDICES=[ 
     { index: 3, smyIndex: 12, count: 4, pattern: "line" },
     { index: 5, smyIndex: 4, count: 5, pattern: "v" },
@@ -89,22 +93,27 @@ export const WINNING_REEL_INDICES=[
     { index: 43, smyIndex: 5, count: 4, pattern: "v" },
 ];
 
+// Bet range available for the player to choose from
 export const BET_RANGE = [5, 10, 25, 50, 100];
 
+// Enum for bet actions (increase or decrease)
 export enum BET_COMMANDS {
     increase = "increase",
     decrease = "decrease"
 }
 
+// Constants for spin state events
 export const SPIN_STARTED = "spinStarted";
 export const SPIN_STOPPED = "spinStopped";
 export const DATA_RECEIVED = "dataRecived";
 
+// Enum for different spin types
 export enum SPIN_TYPES {
     BaseSpin = "baseSpin",
     FreeSpin = "freeSpin"
 }
 
+// Payout positions on the screen (coordinates for payout symbols)
 export const PAYOUT_POSITIONS=[
     [{ x: 277, y: 148 }, { x: 277, y: 299 }, { x: 277, y: 449 }],
     [{ x: 458, y: 148 }, { x: 458, y: 299 }, { x: 458, y: 449 }],

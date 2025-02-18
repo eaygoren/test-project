@@ -6,12 +6,15 @@ import { ASSETS } from "./Configs";
 
 globalThis.eventBus = eventBus;
 
-const WIDTH: number = 1280;
-const HEIGHT: number = 720;
-
 export class core extends PIXI.Container {
     private _app: PIXI.Application;
 
+    private readonly WIDTH: number = 1280;
+    private readonly HEIGHT: number = 720;
+
+    /**
+     * Initializes the core class and creates a new PIXI application.
+     */
     constructor() {
         super();
 
@@ -22,17 +25,19 @@ export class core extends PIXI.Container {
         (globalThis as any).__PIXI_APP__ = this._app;
     }
 
+    /**
+     * Asynchronous initialization of the core system, loading assets and setting up components.
+     */
     async init() {
         await this._app.init({
-            width: WIDTH,
-            height: HEIGHT,
+            width: this.WIDTH,
+            height: this.HEIGHT,
             backgroundColor: "White",
         });
 
-        document.getElementById("Container")?.appendChild(this._app.canvas); 
+        document.getElementById("Container")?.appendChild(this._app.canvas);
 
         await PIXI.Assets.load(ASSETS);
-
         await document.fonts.ready;
 
         const background = new Background(this._app);
@@ -46,14 +51,17 @@ export class core extends PIXI.Container {
         this.onResize();
     }
 
+    /**
+     * Handles window resize events and adjusts the canvas size accordingly.
+     */
     private onResize(): void {
         const screenWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
         const screenHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
 
-        const scale = Math.min(screenWidth / WIDTH, screenHeight / HEIGHT);
+        const scale = Math.min(screenWidth / this.WIDTH, screenHeight / this.HEIGHT);
 
-        const enlargedWidth = Math.floor(scale * WIDTH);
-        const enlargedHeight = Math.floor(scale * HEIGHT);
+        const enlargedWidth = Math.floor(scale * this.WIDTH);
+        const enlargedHeight = Math.floor(scale * this.HEIGHT);
 
         const horizontalMargin = (screenWidth - enlargedWidth) / 2;
         const verticalMargin = (screenHeight - enlargedHeight) / 2;
@@ -64,6 +72,9 @@ export class core extends PIXI.Container {
         this._app.canvas.style.marginTop = this._app.canvas.style.marginBottom = `${verticalMargin}px`;
     }
 
+    /**
+     * Getter for accessing the PIXI application instance.
+     */
     public get app(): PIXI.Application {
         return this._app;
     }
