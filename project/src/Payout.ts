@@ -6,6 +6,7 @@ export class Payout extends PIXI.Container {
 
     private _background: PIXI.Sprite;
     private _isOpened: boolean = false; // Flag to track if the payout is currently open.
+    private _bet: number; // Player's current bet.
 
     constructor(app: any) {
         super();
@@ -81,7 +82,7 @@ export class Payout extends PIXI.Container {
             payAmounts.label = "PayAmount"; // Label for debugging purposes
             payAmounts.anchor.set(0.5, 0.5); // Center the text
             payAmounts.position.set(20, (-47 + (45 * i))); // Adjust position for each payout line
-            payAmounts.text = value.toString() + " €"; // Display the payout amount (e.g., "50 €")
+            payAmounts.text = (value * this._bet).toString() + " €"; // Display the payout amount (e.g., "50 €")
             payAmounts.style = {
                 fontFamily: "TiltNeon",
                 fontSize: 30,
@@ -99,5 +100,13 @@ export class Payout extends PIXI.Container {
     // Getter to check if the payout is currently opened
     public get isOpened(): boolean {
         return this._isOpened;
+    }
+
+    public set bet(value: number) {
+        if (this._bet == value) {
+            return;
+        }
+
+        this._bet = value;;
     }
 }

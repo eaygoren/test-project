@@ -189,6 +189,7 @@ export class Machine extends PIXI.Container {
         // Create and add the payout component
         this._payout = new Payout(this._app);
         this.addChild(this._payout);
+        this._payout.bet = this._betAmount; // Update payout
 
         // Set up pointer events for hiding the payout
         document.onpointerdown = () => {
@@ -258,7 +259,7 @@ export class Machine extends PIXI.Container {
     // Method to handle when the spin stops and win amounts are calculated
     private onSpinStopped(amount: number) {
         if (amount > 0) {
-            this._winDisplay.showWin(amount);  // Show win if amount is greater than 0
+            this._winDisplay.showWin(amount * this._betAmount);  // Show win if amount is greater than 0
         } else {
             this.resetUIElements();  // Reset the UI elements if no win
             globalThis.eventBus.off(EventNames.MoneyEarned);  // Turn off the listener for money earned
@@ -302,6 +303,7 @@ export class Machine extends PIXI.Container {
 
         this._betAmount = BET_RANGE[this._betIndex];  // Update the bet amount based on the index
         this._bet.text = this._betAmount.toString();  // Update the bet display
+        this._payout.bet = this._betAmount; // Update payout
     }
 
     // Display the payout information when a symbol is clicked on the reels
