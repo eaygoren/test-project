@@ -1,7 +1,7 @@
 import * as PIXI from "pixi.js";
 import gsap from "gsap";
 import { EventNames } from "./EventBus";
-import { BET_COMMANDS, BET_RANGE } from "./Configs";
+import { BET_COMMANDS, BET_RANGE, ORIENTATIONS, PORTRAIT_RESULATION } from "./Configs";
 import { Reels } from "./Reels";
 import { WinDisplay } from "./WinDisplay";
 import { Popup } from "./Popup";
@@ -49,6 +49,7 @@ export class Machine extends PIXI.Container {
 
     // This method creates all the components of the machine, including reels, buttons, labels, and display elements
     private create(col: number, row: number) {
+
         // Create and add the reels component
         this._reels = new Reels(this._app, col, row);
         this.addChild(this._reels);
@@ -66,7 +67,6 @@ export class Machine extends PIXI.Container {
         this._interface = PIXI.Sprite.from("interface");
         this._interface.label = "Interface";
         this._interface.anchor.set(0.5, 0.5);
-        this._interface.scale.set(1.2, 1.2);
         this._interface.position.set(640, 640);
         interfaceBackground.addChild(this._interface);
 
@@ -74,7 +74,7 @@ export class Machine extends PIXI.Container {
         let creditLabel = new PIXI.Text();
         creditLabel.label = "CreditLabel";
         creditLabel.anchor.set(0.5, 0.5);
-        creditLabel.position.set(-180, -20);
+        creditLabel.position.set(-210, -20);
         creditLabel.text = "Credits";
         creditLabel.style = {
             fontFamily: "TiltNeon",
@@ -92,7 +92,7 @@ export class Machine extends PIXI.Container {
         this._credit = new PIXI.Text();
         this._credit.label = "CreditAmount";
         this._credit.anchor.set(0.5, 0.5);
-        this._credit.position.set(-180, 15);
+        this._credit.position.set(-210, 15);
         this._credit.text = this.INITIAL_CREDIT.toString();
         this._credit.style = {
             fontFamily: "TiltNeon",
@@ -110,7 +110,7 @@ export class Machine extends PIXI.Container {
         let betLabel = new PIXI.Text();
         betLabel.label = "BetLabel";
         betLabel.anchor.set(0.5, 0.5);
-        betLabel.position.set(180, -20);
+        betLabel.position.set(210, -20);
         betLabel.text = "Bet";
         betLabel.style = {
             fontFamily: "TiltNeon",
@@ -128,7 +128,7 @@ export class Machine extends PIXI.Container {
         this._bet = new PIXI.Text();
         this._bet.label = "BetAmount";
         this._bet.anchor.set(0.5, 0.5);
-        this._bet.position.set(180, 15);
+        this._bet.position.set(210, 15);
         this._bet.text = this.INITIAL_BET.toString();
         this._bet.style = {
             fontFamily: "TiltNeon",
@@ -146,7 +146,7 @@ export class Machine extends PIXI.Container {
         this._plusButton = PIXI.Sprite.from("plus");
         this._plusButton.label = "PlusButton";
         this._plusButton.anchor.set(0.5, 0.5);
-        this._plusButton.position.set(220, 0);
+        this._plusButton.position.set(255, 0);
         this._plusButton.eventMode = "static";
         this._plusButton.cursor = "pointer";
         this._interface.addChild(this._plusButton);
@@ -154,7 +154,7 @@ export class Machine extends PIXI.Container {
         this._minusButton = PIXI.Sprite.from("minus");
         this._minusButton.label = "MinusButton";
         this._minusButton.anchor.set(0.5, 0.5);
-        this._minusButton.position.set(135, 0);
+        this._minusButton.position.set(160, 0);
         this._minusButton.eventMode = "static";
         this._minusButton.cursor = "pointer";
         this._interface.addChild(this._minusButton);
@@ -163,7 +163,6 @@ export class Machine extends PIXI.Container {
         this._spinButton = PIXI.Sprite.from("button");
         this._spinButton.label = "SpinButton";
         this._spinButton.anchor.set(0.5, 0.5);
-        this._spinButton.scale.set(0.65, 0.65);
         this._spinButton.position.set(0, 0);
         this._spinButton.eventMode = "static";
         this._spinButton.cursor = "pointer";
@@ -176,7 +175,7 @@ export class Machine extends PIXI.Container {
         this._buttonText.text = "SPIN";
         this._buttonText.style = {
             fontFamily: "TiltNeon",
-            fontSize: 90,
+            fontSize: 60,
             fontWeight: "700",
             align: "center",
             fill: "#FAFAFA",
@@ -211,13 +210,13 @@ export class Machine extends PIXI.Container {
         this._minusButton.onpointerup = this.onBetChance.bind(this, BET_COMMANDS.decrease);
 
         // Scale effect on pointer enter and exit for the spin button
-        this._spinButton.onpointerenter = () => { gsap.to(this._spinButton.scale, { x: 0.75, y: 0.75, duration: 0.25, ease: "expo.out" }); }
-        this._spinButton.onpointerout = () => { gsap.to(this._spinButton.scale, { x: 0.65, y: 0.65, duration: 0.25, ease: "expo.in" }); }
+        this._spinButton.onpointerenter = () => { gsap.to(this._spinButton.scale, { x: 1.1, y: 1.1, duration: 0.25, ease: "expo.out" }); }
+        this._spinButton.onpointerout = () => { gsap.to(this._spinButton.scale, { x: 1, y: 1, duration: 0.25, ease: "expo.in" }); }
 
         // Handle spin button click
         this._spinButton.onpointerup = () => {
             if (!this._reels.isSpinning) {
-                gsap.to(this._spinButton.scale, { x: 0.65, y: 0.65, duration: 0.25, ease: "expo.in" });
+                gsap.to(this._spinButton.scale, { x: 1, y: 1, duration: 0.25, ease: "expo.in" });
                 this._spinButton.eventMode = "none";
                 this._spinButton.cursor = "default";
                 this._spinButton.alpha = 0.5;
@@ -323,5 +322,11 @@ export class Machine extends PIXI.Container {
         this._plusButton.cursor = "pointer";
         this._minusButton.eventMode = "static";
         this._minusButton.cursor = "pointer";
+    }
+
+    public onResize(orientation: ORIENTATIONS, size: number) {
+        this.children.forEach(element => {
+            this.scale.set(orientation == ORIENTATIONS.portrait ? 1.4 : 1, orientation == ORIENTATIONS.portrait ? 1.4 * (size) : 1);
+        });
     }
 }

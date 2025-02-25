@@ -1,6 +1,6 @@
 import * as PIXI from "pixi.js";
 import gsap from "gsap";
-import { REEL_SET, SYMBOLS, WINNING_REEL_INDICES } from "./Configs";
+import { ORIENTATIONS, REEL_SET, SYMBOLS, WINNING_REEL_INDICES } from "./Configs";
 import { EventNames } from "./EventBus";
 import { Symbol } from "./Symbol";
 
@@ -49,8 +49,9 @@ export class Reels extends PIXI.Container {
         for (let cIndex = 0; cIndex < this._col; cIndex++) {
             // Create mask for the reel to limit symbol display area
             this._masks[cIndex] = new PIXI.Graphics();
-            this._masks[cIndex].beginPath().rect(200 + (cIndex * 181), 74, 155, 450).fill({ color: 0xFAFAFA, alpha: 0 }).closePath();
-
+            this._masks[cIndex].beginPath().rect(200 + (cIndex * 181), 74, 155, 450).fill({ color: 0xFAFAFA, alpha: 1 }).closePath();
+            this.addChild(this._masks[cIndex]);
+            
             // Create the reel sprite
             this._reels[cIndex] = PIXI.Sprite.from("reel");
             this._reels[cIndex].label = "Reel[" + cIndex + "]";
@@ -73,6 +74,8 @@ export class Reels extends PIXI.Container {
                 this._reelContainers[cIndex].addChild(this._symbols[cIndex][rIndex]);
             }
         }
+
+        //this.onResize();
     }
 
     //#region EVENT LISTENERS
@@ -83,6 +86,7 @@ export class Reels extends PIXI.Container {
         globalThis.eventBus.on(EventNames.ReelStopped, this.onReelStopped.bind(this));
         globalThis.eventBus.on(EventNames.WinShown, this.onWinDisplayOver.bind(this));
         globalThis.eventBus.on(EventNames.SymbolClicked, this.onSymbolClicked.bind(this));
+        //window.addEventListener("resize", this.onResize.bind(this));
     }
     //#endregion
 

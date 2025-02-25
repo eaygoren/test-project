@@ -2,12 +2,15 @@ import * as PIXI from "pixi.js";
 import { Background } from "./Background";
 import { Machine } from "./Machine";
 import { eventBus } from "./EventBus";
-import { ASSETS } from "./Configs";
+import { ASSETS, LANDSCAPE_RESULATION, ORIENTATIONS, PORTRAIT_RESULATION } from "./Configs";
 
 globalThis.eventBus = eventBus;
 
 export class core extends PIXI.Container {
     private _app: PIXI.Application;
+
+    private _background: Background;
+    private _machine: Machine;
 
     private readonly WIDTH: number = 1280;
     private readonly HEIGHT: number = 720;
@@ -32,6 +35,7 @@ export class core extends PIXI.Container {
         await this._app.init({
             width: this.WIDTH,
             height: this.HEIGHT,
+            resolution: devicePixelRatio,
             backgroundColor: "White",
         });
 
@@ -40,11 +44,11 @@ export class core extends PIXI.Container {
         await PIXI.Assets.load(ASSETS);
         await document.fonts.ready;
 
-        const background = new Background(this._app);
-        this.addChild(background);
+        this._background = new Background(this._app);
+        this.addChild(this._background);
 
-        const machine = new Machine(this._app);
-        this.addChild(machine);
+        this._machine = new Machine(this._app);
+        this.addChild(this._machine);
 
         window.addEventListener("resize", this.onResize.bind(this));
 
@@ -55,13 +59,36 @@ export class core extends PIXI.Container {
      * Handles window resize events and adjusts the canvas size accordingly.
      */
     private onResize(): void {
-        const screenWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-        const screenHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+        const screenWidth = document.documentElement.clientWidth;
+        const screenHeight = document.documentElement.clientHeight;
+        const orientation = screenWidth > screenHeight ? ORIENTATIONS.landscape : ORIENTATIONS.portrait;
 
-        const scale = Math.min(screenWidth / this.WIDTH, screenHeight / this.HEIGHT);
+        let scale, enlargedWidth, enlargedHeight;
 
-        const enlargedWidth = Math.floor(scale * this.WIDTH);
-        const enlargedHeight = Math.floor(scale * this.HEIGHT);
+        switch (orientation) {
+            case ORIENTATIONS.landscape:
+                scale = Math.min(screenWidth / LANDSCAPE_RESULATION.width, screenHeight / LANDSCAPE_RESULATION.height);
+
+                enlargedWidth = Math.floor(scale * LANDSCAPE_RESULATION.width);
+                enlargedHeight = Math.floor(scale * LANDSCAPE_RESULATION.height);
+
+                this._background.onResize(orientation, 1);
+                this._machine.onResize(orientation, 1);
+
+                this._machine.position.set(0, 0);
+                break;
+            case ORIENTATIONS.portrait:
+                scale = Math.min(screenWidth / PORTRAIT_RESULATION.width, screenHeight / PORTRAIT_RESULATION.height);
+
+                enlargedWidth = Math.floor(scale * PORTRAIT_RESULATION.width);
+                enlargedHeight = Math.floor(scale * PORTRAIT_RESULATION.height);
+
+                this._background.onResize(orientation, (PORTRAIT_RESULATION.height / PORTRAIT_RESULATION.width));
+                this._machine.onResize(orientation, (PORTRAIT_RESULATION.width / PORTRAIT_RESULATION.height) * 0.55);
+
+                this._machine.position.set(-255, 220);
+                break;
+        }
 
         const horizontalMargin = (screenWidth - enlargedWidth) / 2;
         const verticalMargin = (screenHeight - enlargedHeight) / 2;

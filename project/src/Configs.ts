@@ -1,14 +1,14 @@
 // Define asset references with aliases and sources for images
 export const ASSETS = [
     { alias: "background", src: "assets/environment/background.jpg" },
-    { alias: "reel", src: "assets/environment/reel.png" },
     { alias: "button", src: "assets/environment/button.png" },
-    { alias: "interface", src: "assets/environment/interface.png" },
-    { alias: "plus", src: "assets/environment/plus.png" },
-    { alias: "minus", src: "assets/environment/minus.png" },
     { alias: "highlight", src: "assets/environment/highlight.png" },
-    { alias: "popup", src: "assets/environment/popup.png" },
+    { alias: "interface", src: "assets/environment/interface.png" },
+    { alias: "minus", src: "assets/environment/minus.png" },
     { alias: "payout", src: "assets/environment/payout.png" },
+    { alias: "plus", src: "assets/environment/plus.png" },
+    { alias: "popup", src: "assets/environment/popup.png" },
+    { alias: "reel", src: "assets/environment/reel.png" },
     { alias: "9", src: "assets/symbols/9.png" },
     { alias: "9_connect", src: "assets/symbols/9_connect.png" },
     { alias: "10", src: "assets/symbols/10.png" },
@@ -114,10 +114,18 @@ export enum SPIN_TYPES {
 }
 
 // Payout positions on the screen (coordinates for payout symbols)
-export const PAYOUT_POSITIONS=[
+export const PAYOUT_POSITIONS = [
     [{ x: 277, y: 148 }, { x: 277, y: 299 }, { x: 277, y: 449 }],
     [{ x: 458, y: 148 }, { x: 458, y: 299 }, { x: 458, y: 449 }],
     [{ x: 639, y: 148 }, { x: 639, y: 299 }, { x: 639, y: 449 }],
     [{ x: 821, y: 148 }, { x: 821, y: 299 }, { x: 821, y: 449 }],
     [{ x: 1002, y: 148 }, { x: 1002, y: 299 }, { x: 1002, y: 449 }]
 ]
+
+export enum ORIENTATIONS {
+    landscape = "landscape",
+    portrait = "portrait"
+}
+
+export const PORTRAIT_RESULATION = { width: 720, height: 1280 };
+export const LANDSCAPE_RESULATION = { width: 1280, height: 720 };
