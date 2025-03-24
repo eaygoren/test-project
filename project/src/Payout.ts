@@ -5,7 +5,7 @@ export class Payout extends PIXI.Container {
     private _app: PIXI.Application;
 
     private _background: PIXI.Sprite;
-    private _isOpened: boolean = false; // Flag to track if the payout is currently open.
+    private _isOpened: boolean = false;
     private _bet: number; // Player's current bet.
 
     constructor(app: any) {
@@ -25,13 +25,12 @@ export class Payout extends PIXI.Container {
     // Create the payout background sprite
     private create() {
         this._background = PIXI.Sprite.from("payout");
-        this._background.label = "PayoutBackground"; // Label for debugging purposes
-        this._background.anchor.set(0.5, 0.5); // Set anchor for centering the sprite
-        this._background.visible = false; // Initially, set the background to be hidden
+        this._background.label = "PayoutBackground";
+        this._background.anchor.set(0.5, 0.5);
+        this._background.visible = false;
         this.addChild(this._background);
     }
 
-    // Set up event listeners (empty for now, can be extended later)
     private eventListeners() { }
 
     // Display the payout information based on the provided symbol index and reel/row positions
@@ -40,7 +39,7 @@ export class Payout extends PIXI.Container {
             this.hidePayout(); // Hide any existing payout display before showing a new one
         }
 
-        this.eventMode = "static"; // Disable further interaction while payout is shown
+        this.eventMode = "static";
 
         this._isOpened = true;
 
@@ -54,18 +53,18 @@ export class Payout extends PIXI.Container {
     // Hide the payout display
     public hidePayout() {
         this._background.visible = false;
-        this._background.removeChildren(); // Remove any children (values) from the background
-        this._isOpened = false; // Set the opened flag to false
+        this._background.removeChildren();
+        this._isOpened = false;
     }
 
     // Create and display the payout values for the symbol
     private createPayoutValues(index: number) {
         Object.entries(SYMBOLS[index].payout).forEach(([key, value], i) => {
             let payCounts = new PIXI.Text();
-            payCounts.label = "PayCount"; // Label for debugging purposes
-            payCounts.anchor.set(0.5, 0.5); // Center the text
-            payCounts.position.set(-45, (-47 + (45 * i))); // Adjust position for each payout line
-            payCounts.text = key.toString(); // Display the payout line key (e.g., "3 symbols")
+            payCounts.label = "PayCount";
+            payCounts.anchor.set(0.5, 0.5);
+            payCounts.position.set(-45, (-47 + (45 * i)));
+            payCounts.text = key.toString();
             payCounts.style = {
                 fontFamily: "TiltNeon",
                 fontSize: 40,
@@ -79,9 +78,9 @@ export class Payout extends PIXI.Container {
             this._background.addChild(payCounts);
 
             let payAmounts = new PIXI.Text();
-            payAmounts.label = "PayAmount"; // Label for debugging purposes
-            payAmounts.anchor.set(0.5, 0.5); // Center the text
-            payAmounts.position.set(20, (-47 + (45 * i))); // Adjust position for each payout line
+            payAmounts.label = "PayAmount";
+            payAmounts.anchor.set(0.5, 0.5);
+            payAmounts.position.set(20, (-47 + (45 * i)));
             payAmounts.text = (value * this._bet).toString() + " €"; // Display the payout amount (e.g., "50 €")
             payAmounts.style = {
                 fontFamily: "TiltNeon",
@@ -97,7 +96,7 @@ export class Payout extends PIXI.Container {
         });
     }
 
-    // Getter to check if the payout is currently opened
+    //#region Getters & Setters
     public get isOpened(): boolean {
         return this._isOpened;
     }
@@ -109,4 +108,5 @@ export class Payout extends PIXI.Container {
 
         this._bet = value;;
     }
+    //#endregion
 }

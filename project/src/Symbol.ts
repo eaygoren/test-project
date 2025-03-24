@@ -3,10 +3,10 @@ import { SYMBOLS } from "./Configs";
 import { EventNames } from "./EventBus";
 
 export class Symbol extends PIXI.Sprite {
-    private _app: PIXI.Application; // Reference to the PIXI application
-    private _index: number; // Index of the symbol
-    private _reelIndex: number; // Index of the reel the symbol is on
-    private _positionIndex: number; // Position index of the symbol in the reel
+    private _app: PIXI.Application;
+    private _index: number;
+    private _reelIndex: number;
+    private _positionIndex: number;
 
     constructor(app: any, index: number, reelIndex: number, symbolPositionIndex: number) {
         super();
@@ -16,32 +16,32 @@ export class Symbol extends PIXI.Sprite {
         this._reelIndex = reelIndex;
         this._positionIndex = symbolPositionIndex;
 
-        this.onLoad(); // Calls the onLoad method after the object is created
+        this.onLoad();
     }
 
     // Initializes the symbol, creates it and adds event listeners
     private onLoad() {
-        this.create(); // Creates the symbol
-        this.eventListeners(); // Adds event listeners
+        this.create();
+        this.eventListeners();
     }
 
     // Sets the symbol texture and properties
     private create() {
-        this.texture = PIXI.Texture.from(SYMBOLS[this._index].base); // Sets the symbol's texture based on the index
-        this.label = `Symbol[${this._index}]`; // Sets a label for the symbol
-        this.anchor.set(0.5, 0.5); // Centers the anchor of the symbol for positioning
-        this.eventMode = "static"; // The symbol is static and does not trigger events by itself
-        this.cursor = "pointer"; // Sets the cursor to a pointer when hovering over the symbol
-        this.addChild(this); // Adds the symbol to its parent container
+        this.texture = PIXI.Texture.from(SYMBOLS[this._index].base);
+        this.label = `Symbol[${this._index}]`;
+        this.anchor.set(0.5, 0.5);
+        this.eventMode = "static";
+        this.cursor = "pointer";
+        this.addChild(this);
     }
 
     // Adds event listeners for the symbol's interaction
     private eventListeners() {
         this.onpointerup = () => {
             globalThis.eventBus.emit(EventNames.SymbolClicked, {
-                symbolIndex: this._index, // Sends the symbol's index
-                reelIndex: this._reelIndex, // Sends the reel's index
-                rowIndex: this._positionIndex // Sends the row's position index
+                symbolIndex: this._index,
+                reelIndex: this._reelIndex,
+                rowIndex: this._positionIndex
             });
         }
     }
@@ -49,8 +49,8 @@ export class Symbol extends PIXI.Sprite {
     // Sets the index of the symbol and updates its texture
     public setIndex(index: number) {
         this._index = index;
-        this.texture = PIXI.Texture.from(SYMBOLS[this._index].base); // Updates the texture
-        this.label = `Symbol[${this._index}]`; // Updates the label
+        this.texture = PIXI.Texture.from(SYMBOLS[this._index].base);
+        this.label = `Symbol[${this._index}]`;
     }
 
     // Sets the symbol's highlight texture
@@ -65,12 +65,12 @@ export class Symbol extends PIXI.Sprite {
 
     // Applies a blackout effect to the symbol (gray tint)
     public setBlackout() {
-        this.tint = 0x555555; // Applies a gray tint
+        this.tint = 0x555555;
     }
 
     // Restores the symbol to its default appearance
     public setDefault() {
-        this.tint = 0xFFFFFF; // Removes any tint, restoring the default appearance
+        this.tint = 0xFFFFFF;
     }
 
     // Getter for the symbol's index

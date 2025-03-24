@@ -51,7 +51,7 @@ export class Reels extends PIXI.Container {
             this._masks[cIndex] = new PIXI.Graphics();
             this._masks[cIndex].beginPath().rect(200 + (cIndex * 181), 74, 155, 450).fill({ color: 0xFAFAFA, alpha: 1 }).closePath();
             this.addChild(this._masks[cIndex]);
-            
+
             // Create the reel sprite
             this._reels[cIndex] = PIXI.Sprite.from("reel");
             this._reels[cIndex].label = "Reel[" + cIndex + "]";
@@ -79,14 +79,12 @@ export class Reels extends PIXI.Container {
     }
 
     //#region EVENT LISTENERS
-    // Set up event listeners for various events such as reel stopping and data receiving
     private eventListeners() {
         globalThis.eventBus.on(EventNames.AllReelsStopped, this.onSpinStopped.bind(this));
         globalThis.eventBus.on(EventNames.DataRecieved, this.onDataReceived.bind(this));
         globalThis.eventBus.on(EventNames.ReelStopped, this.onReelStopped.bind(this));
         globalThis.eventBus.on(EventNames.WinShown, this.onWinDisplayOver.bind(this));
         globalThis.eventBus.on(EventNames.SymbolClicked, this.onSymbolClicked.bind(this));
-        //window.addEventListener("resize", this.onResize.bind(this));
     }
     //#endregion
 
@@ -111,7 +109,6 @@ export class Reels extends PIXI.Container {
     }
 
     //#region REEL MOVEMENT
-    // Animate the reel's movement by relocating it
     private relocateReel(reel: PIXI.Container, backPoint: number, endPoint: number, delay: number, reelIndex: number) {
         const startPoint: number = reel.position.y;
         let startTween = gsap.to(reel.position, {

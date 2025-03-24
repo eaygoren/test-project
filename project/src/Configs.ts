@@ -122,10 +122,12 @@ export const PAYOUT_POSITIONS = [
     [{ x: 1002, y: 148 }, { x: 1002, y: 299 }, { x: 1002, y: 449 }]
 ]
 
+// Enum for different game orientations
 export enum ORIENTATIONS {
     landscape = "landscape",
     portrait = "portrait"
 }
 
+// Constants for different screen resolutions
 export const PORTRAIT_RESULATION = { width: 720, height: 1280 };
 export const LANDSCAPE_RESULATION = { width: 1280, height: 720 };

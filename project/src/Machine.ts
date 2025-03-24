@@ -9,12 +9,12 @@ import { Payout } from "./Payout";
 
 // The Machine class extends PIXI.Container and represents a slot machine game.
 export class Machine extends PIXI.Container {
-    private _app: PIXI.Application;  // The PIXI Application instance
+    private _app: PIXI.Application;
 
-    private _reels: Reels;  // The slot reels
-    private _winDisplay: WinDisplay;  // Displays the win results
-    private _payout: Payout;  // Shows the payout
-    private _popup: Popup;  // Displays a popup for certain conditions
+    private _reels: Reels;
+    private _winDisplay: WinDisplay;
+    private _payout: Payout;
+    private _popup: Popup;
 
     // Constants defining the machine's structure and initial values
     private readonly COL_LENGTH = 5;  // Number of columns in the reels
@@ -22,34 +22,33 @@ export class Machine extends PIXI.Container {
     private readonly INITIAL_CREDIT: number = 50000;  // Initial credit amount
     private readonly INITIAL_BET: number = BET_RANGE[BET_RANGE.length - 1];  // Initial bet amount
 
-    private _interface: PIXI.Sprite;  // The interface sprite
-    private _credit: PIXI.Text;  // The text displaying the credit amount
-    private _creditAmount: number = this.INITIAL_CREDIT;  // The current credit amount
-    private _bet: PIXI.Text;  // The text displaying the bet amount
-    private _betAmount: number = this.INITIAL_BET;  // The current bet amount
-    private _betIndex: number = BET_RANGE.length - 1;  // The index of the current bet range
-    private _spinButton: PIXI.Sprite;  // The spin button
-    private _buttonText: PIXI.Text;  // Text on the spin button
-    private _plusButton: PIXI.Sprite;  // Button to increase the bet
-    private _minusButton: PIXI.Sprite;  // Button to decrease the bet
+    private _interface: PIXI.Sprite;
+    private _credit: PIXI.Text;
+    private _creditAmount: number = this.INITIAL_CREDIT;
+    private _bet: PIXI.Text;
+    private _betAmount: number = this.INITIAL_BET;
+    private _betIndex: number = BET_RANGE.length - 1;
+    private _spinButton: PIXI.Sprite;
+    private _buttonText: PIXI.Text;
+    private _plusButton: PIXI.Sprite;
+    private _minusButton: PIXI.Sprite;
 
     constructor(app: any) {
-        super();  // Call the parent class constructor
+        super();
 
-        this._app = app;  // Assign the app instance
+        this._app = app;
 
-        this.onLoad(this.COL_LENGTH, this.ROW_LENGTH);  // Initialize the machine with column and row lengths
+        this.onLoad(this.COL_LENGTH, this.ROW_LENGTH);
     }
 
     // This method loads the machine's components and sets up event listeners
     private onLoad(col: number, row: number) {
-        this.create(col, row);  // Create the machine components
-        this.eventListeners();  // Set up event listeners for user interaction
+        this.create(col, row);
+        this.eventListeners();
     }
 
     // This method creates all the components of the machine, including reels, buttons, labels, and display elements
     private create(col: number, row: number) {
-
         // Create and add the reels component
         this._reels = new Reels(this._app, col, row);
         this.addChild(this._reels);
@@ -202,8 +201,8 @@ export class Machine extends PIXI.Container {
         this.addChild(this._popup);
     }
 
-    // This section handles all event listeners for user interaction
     //#region LISTENERS
+    // This section handles all event listeners for user interaction
     private eventListeners() {
         // Increase and decrease bet actions
         this._plusButton.onpointerup = this.onBetChance.bind(this, BET_COMMANDS.increase);
@@ -252,7 +251,7 @@ export class Machine extends PIXI.Container {
 
     // Method to start the spin process
     private startSpin() {
-        this._reels.startSpin(0.15);  // Start spinning with a speed factor of 0.15
+        this._reels.startSpin(0.15);  // Start spinning with a speed factor
     }
 
     // Method to handle when the spin stops and win amounts are calculated
