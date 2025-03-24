@@ -1,5 +1,4 @@
-# Slot Game Case Study
-
+# Slot Game Test Project
 This slot game was developed as a test project using modern web technologies.
 
 ## Table of Contents
