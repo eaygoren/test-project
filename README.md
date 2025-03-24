@@ -1,6 +1,6 @@
 # Slot Game Case Study
 
-This slot game was developed as a case study for the AvatarUX project using modern web technologies.
+This slot game was developed as a test project using modern web technologies.
 
 ## Table of Contents
 
